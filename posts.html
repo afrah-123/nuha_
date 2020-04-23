@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Posts</title>
+<style>
+body {
+  background-color: #E6E6FA;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<center><h1> THANK YOU! I APPRECIATE IT</h1></center>
+    <hr>
+    <h2> REVIEW</h2>
+    <form action='/posts' method='POST'>
+        Name Of The Customer : <input type='text' name='title' id='title'>
+        <br>
+        <br>
+        Review Of The Product : <input type='text' name='content' id='content'  size='100'>
+        <br>
+        <br>
+        <input type='submit' value='Post'>
+    </form>
+    <hr>
+
+    {% for post in posts %}
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.content }}</p>
+    {% endfor %}
+
+{% endblock %}
