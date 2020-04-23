@@ -8,6 +8,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
 db = SQLAlchemy(app)
 
+
 class BlogPost(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(20), nullable=False)
@@ -16,6 +17,7 @@ class BlogPost(db.Model):
 
     def __repr__(self):
         return 'Blog Post ' + str(self.id)
+
 
 all_posts = [
     {
@@ -28,11 +30,13 @@ all_posts = [
     }
 ]
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/posts', methods=['GET','POST'])
+
+@app.route('/posts', methods=['GET', 'POST'])
 def posts():
     if request.method == "POST":
         post_title = request.form['title']
@@ -45,13 +49,16 @@ def posts():
         all_posts = BlogPost.query.order_by(BlogPost.date_posted).all()
     return render_template('posts.html', posts=all_posts)
 
+
 @app.route('/home/<int:id>')
 def hello(id):
     return 'hello, ' + str(id)
+
 
 @app.route('/onlyget', methods=['GET'])
 def get_req():
     return 'you can only get this webpage.1'
 
-if __name__=='__main__':
+
+if __name__ == '__main__':
     app.run(debug=True)
